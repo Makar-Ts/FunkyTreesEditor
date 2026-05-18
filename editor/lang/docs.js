@@ -456,9 +456,15 @@ export const funkyDocs = {
     ],
     utils: [
       { 
+        symbol: "|>", 
+        description: "Field assignment operator (open). Can define priority and activator like this: `|> Field1; [priority]; [activator] |= Funky Trees`", 
+        example: "|> Field1 |= Funky Trees", 
+        explanation: "Defines a new field called Field1" 
+      },
+      { 
         symbol: "|=", 
-        description: "Field assignment operator", 
-        example: "Field1 |= Funky Trees", 
+        description: "Field assignment operator (close). Can define priority and activator like this: `|> Field1; [priority]; [activator] |= Funky Trees`", 
+        example: "|> Field1 |= Funky Trees", 
         explanation: "Defines a new field called Field1" 
       },
     ]

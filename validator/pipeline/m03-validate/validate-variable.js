@@ -9,7 +9,7 @@ import { Token } from "../../parcer/parser.js";
  * @param {Array<any>} contextVariables 
  */
 export function validateVariable(node, addDiagnostics, contextVariables) {
-  if (!contextVariables.some(r => r.name === node.name)) {
+  if (!contextVariables.some(r => r.name.content === node.name)) {
     const docs = funkyDocs.variables[node.name];
 
     if (!docs) {

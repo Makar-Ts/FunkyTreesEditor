@@ -8,7 +8,7 @@ export default function generateDecorations(editor, variableByLine) {
   lastVarByLine = variableByLine;
 
   let newDecorations = [];
-  for (const [line, content] of variableByLine.entries()) {
+  for (const [line, v] of variableByLine.entries()) {
     newDecorations.push({
       range: new monaco.Range(line, 1, line, 1),
       options: {
@@ -36,7 +36,7 @@ editor.onMouseDown((e) => {
   const value = lastVarByLine.get(line);
   if (!value) return;
 
-  navigator.clipboard.writeText(value)
+  navigator.clipboard.writeText(value.content.content)
     .then(() => {
       console.log("copied");
     })

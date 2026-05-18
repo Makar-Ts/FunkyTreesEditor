@@ -24,11 +24,15 @@
       <img src="./assets/icons/information_line.svg" alt="info">
       <span>&nbsp;Info</span>
     </div>
+    <div class="button" id="change_logs">
+      <img src="./assets/icons/notebook_2_line.svg" alt="info">
+      <span>&nbsp;Change Logs</span>
+    </div>
   </div>
 
 
-  <div id="info_modal">
-    <div id="info_modal_container">
+  <div id="info_modal" class="modal">
+    <div id="info_modal_container" class="container">
       <p>
         Creator: <a href="https://makar-ts.github.io/">Makar-Ts</a><br>
         Discord: <code>@makargrom</code> / <code>__add__(love):</code> / <code>addLove</code>
@@ -42,9 +46,21 @@
         © 2026 Copyright Makar-Ts
       </p>
 
-      <button id="close_info_modal">×</button>
+      <button id="close_info_modal" class="close">×</button>
     </div>
   </div>
+
+
+  <div id="change_logs_modal" class="modal">
+    <div id="change_logs_modal_container" class="container">
+      <button id="close_change_logs_modal" class="close">×</button>
+
+      <div id="change_logs_modal_logs" class="scrollbar">
+
+      </div>
+    </div>
+  </div>
+
 
   <script type="module" src="./index.js"></script>
 </body>

@@ -193,13 +193,15 @@ code {
       color: var(--text);
 
       box-sizing: border-box;
+
+      white-space: nowrap;
     }
 
     --blink-color: lime;
   }
 }
 
-#info_modal {
+.modal {
   position: fixed;
   display: none;
   z-index: 15;
@@ -212,7 +214,7 @@ code {
 
   background-color: rgba(0, 0, 0, 0.4);
 
-  #info_modal_container {
+  .container {
     position: absolute;
 
     background-color: var(--editor-background);
@@ -229,7 +231,7 @@ code {
     
     padding: 10px 20px;
 
-    #close_info_modal {
+    .close {
       position: absolute;
       right: -25px;
       top: 0;
@@ -273,5 +275,36 @@ code {
 
   &:active {
     opacity: 50%;
+  }
+}
+
+#change_logs_modal_logs {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  overflow-y: scroll;
+
+  .change-logs {
+    .change-logs-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      font-size: 16px;
+
+      .change-logs-name {
+        font-weight: 700;
+      }
+
+      .change-logs-date {
+        opacity: 40%;
+      }
+    }
+
+    .tags {
+      opacity: 40%;
+      font-size: 12px;
+    }
   }
 }
