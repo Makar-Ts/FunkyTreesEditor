@@ -251,7 +251,6 @@ monaco.languages.registerHoverProvider("funky", {
       const char = model.getLineContent(position.lineNumber)[position.column-1];
       const char2b = model.getLineContent(position.lineNumber).slice(position.column-2, position.column);
       const char2 = model.getLineContent(position.lineNumber).slice(position.column-1, position.column+1);
-      console.log(char);
 
       const operator = findOperator(char2b) ?? findOperator(char2) ?? findOperator(char);
       if (operator) {
