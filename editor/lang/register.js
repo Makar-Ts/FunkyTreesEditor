@@ -1,6 +1,7 @@
 import * as monaco from "../../libs/monaco-editor/main.js";
 import { variables, keywords, functions } from "./names.js";
 import { funkyDocs } from './docs.js'
+import { VARIABLE_REGEX } from "../../validator/pipeline/m01-variables.js";
 
 monaco.languages.register({ id: "funky" });
 
@@ -19,8 +20,12 @@ monaco.languages.setMonarchTokensProvider("funky", {
 
       // fields
       [
-        /^ *\w+ *\|=/,
+        VARIABLE_REGEX,
         "field"
+      ],
+      [
+        /\|=/,
+        "field-equals"
       ],
 
       // functions
@@ -68,6 +73,7 @@ monaco.editor.defineTheme("funky-dark", {
 
   rules: [
     { token: "field", foreground: "FFE000" },
+    { token: "field-equals", foreground: "FFE000" },
     { token: "variable", foreground: "4FC1FF" },
     { token: "function", foreground: "DCDCAA" },
     { token: "keyword", foreground: "C586C0" },
@@ -100,7 +106,7 @@ monaco.languages.registerCompletionItemProvider("funky", {
         kind:  monaco.languages.CompletionItemKind.Field,
         detail: 'create field',
 
-        insertText: `${line} |= `,
+        insertText: `|> ${line} |= `,
       })
     }
 
@@ -313,7 +319,7 @@ ${fn.example}
 
 monaco.languages.setLanguageConfiguration("funky", {
   brackets: [["(", ")"]],
-  colorizedBracketPairs: [["(", ")"], ["?", ":"]],
+  colorizedBracketPairs: [["(", ")"], ["?", ":"], ["|>", "|="]],
 
   autoClosingPairs: [
     {
@@ -327,6 +333,10 @@ monaco.languages.setLanguageConfiguration("funky", {
     {
       open: "?",
       close: ":"
+    },
+    {
+      open: "|>",
+      close: "|="
     }
   ],
 });
