@@ -119,6 +119,25 @@
   </div>
 
 
+  <div id="loader">
+    <div class="loader-container">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <p id="too_much_loading" style="opacity: 0%;">Loading may take a bit longer than expected. Sorry for the inconvenience.</p>
+  </div>
+
+  <script>
+    const t = setTimeout(() => document.getElementById('too_much_loading').style['opacity'] = '100%', 3000);
+
+    window.addEventListener('load', () => { 
+      clearTimeout(t);
+      document.getElementById('loader').style['display'] = 'none'; 
+    })
+  </script>
   <script type="module" src="./index.js"></script>
 </body>
 </html>
