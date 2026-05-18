@@ -17,6 +17,12 @@ monaco.languages.setMonarchTokensProvider("funky", {
       // numbers
       [/\d+(\.\d+)?/, "number"],
 
+      // fields
+      [
+        /^ *\w+ *\|=/,
+        "field"
+      ],
+
       // functions
       [
         /[a-zA-Z_]\w*(?=\s*\()/,
@@ -61,6 +67,7 @@ monaco.editor.defineTheme("funky-dark", {
   inherit: true,
 
   rules: [
+    { token: "field", foreground: "FFE000" },
     { token: "variable", foreground: "4FC1FF" },
     { token: "function", foreground: "DCDCAA" },
     { token: "keyword", foreground: "C586C0" },
@@ -79,8 +86,48 @@ monaco.editor.defineTheme("funky-dark", {
 monaco.languages.registerCompletionItemProvider("funky", {
   triggerCharacters: ["("],
 
-  provideCompletionItems() {
+  provideCompletionItems(model, position) {
     const suggestions = [];
+
+    // Field Create
+    /** @type {string} */
+    const line = model.getLineContent(position.lineNumber).slice(0, position.column).trim();
+
+    if (line.match(/^[^ ]+$/)) {
+      suggestions.push({
+        label: `${line}`,
+
+        kind:  monaco.languages.CompletionItemKind.Field,
+        detail: 'create field',
+
+        insertText: `${line} |= `,
+      })
+    }
+
+    // Fields
+    const fields = model.findMatches(
+      /^ *\w+ *\|=/,
+      false,
+      true,
+      false,
+      null,
+      false 
+    );
+
+    for (const { range } of fields) {
+      const match = model.getValueInRange(range)
+        .replace('|=', '')
+        .trim();
+
+      suggestions.push({
+        label: `${match}`,
+
+        kind:  monaco.languages.CompletionItemKind.Variable,
+        detail: 'field',
+
+        insertText: `${match}`,
+      })
+    }
 
     // FUNCTIONS
     for (const [name, meta] of Object.entries(funkyDocs.functions)) {

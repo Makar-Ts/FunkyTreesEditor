@@ -10,3 +10,7 @@ export const editor = monaco.editor.create(
     value: ``
   }
 );
+
+editor.updateOptions({
+  glyphMargin: true
+});

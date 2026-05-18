@@ -197,3 +197,11 @@ input {
     box-shadow: none;
   }
 }
+
+
+.copyVarBtn {
+  background: url("./assets/icons/copy_3_line.svg") center center no-repeat;
+  background-size: 16px;
+  padding-left: 10px;
+  cursor: pointer;
+}
