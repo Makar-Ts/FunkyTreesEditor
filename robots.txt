@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://makar-ts.github.io/FunkyTreesEditor/sitemap.xml
