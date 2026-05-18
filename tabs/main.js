@@ -5,7 +5,7 @@ let tabs = [
   {
     id: 'main',
     name: 'main',
-    value: `SmoothFlaps |= Activate1 \n\t? -Pitch \n\t: -Pitch * clamp01((1 - (IAS * 3.6 - 1200) / 600))`
+    value: `|> SmoothFlaps\n\t; 0\n\t; Activate2 \n|= Activate1 \n\t? -Pitch \n\t: -Pitch * clamp01((1 - (IAS * 3.6 - 1200) / 600))\n\n|> Field2 |= SmoothFlaps > 0.9 ? 1 : 0`
   }
 ];
 
