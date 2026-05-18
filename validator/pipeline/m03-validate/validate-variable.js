@@ -15,7 +15,7 @@ export function validateVariable(node, addDiagnostics, contextVariables) {
     if (!docs) {
       addDiagnostics({
         severity: monaco.MarkerSeverity.Error,
-        message: `Variable "${node.name}" is not defined or exists`,
+        message: `VariableError: Variable "${node.name}" is not defined or is not exists`,
 
         startLineNumber: node.line,
         startColumn: node.column,

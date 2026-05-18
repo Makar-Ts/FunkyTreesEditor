@@ -13,7 +13,7 @@ export function validateFunctionCall(node, addDiagnostics) {
   if (!docs) {
     addDiagnostics({
       severity: monaco.MarkerSeverity.Error,
-      message: `Function "${node.name}" is not exists`,
+      message: `FunctionError: Function "${node.name}" does not exists`,
 
       startLineNumber: node.line,
       startColumn: node.column,
@@ -28,7 +28,7 @@ export function validateFunctionCall(node, addDiagnostics) {
   if (docs.params.length !== node.args.length) {
     addDiagnostics({
       severity: monaco.MarkerSeverity.Error,
-      message: `Expected ${docs.params.length} argument${docs.params.length === 1 ? '' : 's'}, recieved ${node.args.length}`,
+      message: `FunctionError: Expected ${docs.params.length} argument${docs.params.length === 1 ? '' : 's'}, but received ${node.args.length}`,
 
       startLineNumber: node.line,
       startColumn: node.column,

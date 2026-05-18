@@ -33,7 +33,7 @@ editor.onDidChangeModelContent(() => {
 
         diagnostics.push({
           severity: monaco.MarkerSeverity.Error,
-          message: `Unexpected character "${char}"`,
+          message: `${e.constructor.name}: Unexpected character "${char}"`,
 
           startLineNumber: start.lineNumber,
           startColumn: start.column,
@@ -47,7 +47,7 @@ editor.onDidChangeModelContent(() => {
 
         diagnostics.push({
           severity: monaco.MarkerSeverity.Error,
-          message: `Unexpected token "${previousToken ? previousToken.name ?? previousToken.type : token.name ?? token.type}"`,
+          message: `${e.constructor.name}: Unexpected token "${previousToken ? previousToken.name ?? previousToken.type : token.name ?? token.type}"`,
 
           startLineNumber: start.lineNumber,
           startColumn: start.column,
@@ -61,7 +61,7 @@ editor.onDidChangeModelContent(() => {
 
         diagnostics.push({
           severity: monaco.MarkerSeverity.Error,
-          message: `Expected ${expectedToken}, got "${previousToken ? previousToken.name ?? previousToken.type : token.name ?? token.type}"`,
+          message: `${e.constructor.name}: Expected ${expectedToken}, but got "${previousToken ? previousToken.name ?? previousToken.type : token.name ?? token.type}"`,
 
           startLineNumber: start.lineNumber,
           startColumn: start.column,
