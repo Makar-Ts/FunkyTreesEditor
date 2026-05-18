@@ -20,6 +20,11 @@ body {
   background-color: var(--tabs-background);
 }
 
+.seo-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
 input {
   border: 1px solid black;
   border-radius: 0px;

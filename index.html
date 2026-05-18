@@ -13,29 +13,76 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Funky Trees Editor</title>
+  <title>Funky Trees Editor - SimplePlanes 2 Online FT Editor</title>
+
+  <meta name="description" content="Funky Trees Editor - online editor for creating and editing SimplePlanes 2 Funky Trees.">
+  <meta name="keywords" content="Funky Trees, Funky Trees Editor, SimplePlanes 2, online editor, FunkyGuide">
+  <meta name="author" content="Makar-Ts">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1E1E1E">
+
+  <meta property="og:title" content="Funky Trees Editor">
+  <meta property="og:site_name" content="Funky Trees Editor">
+  <meta property="og:description" content="Online editor for creating and editing SimplePlanes 2 Funky Trees.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://makar-ts.github.io/FunkyTreesEditor/">
+  <meta property="og:image" content="https://makar-ts.github.io/FunkyTreesEditor/assets/favicon.svg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Funky Trees Editor">
+  <meta name="twitter:description" content="Online editor for creating and editing SimplePlanes 2 Funky Trees.">
+  <meta name="twitter:image" content="https://makar-ts.github.io/FunkyTreesEditor/assets/favicon.svg">
+
+  <link rel="canonical" href="https://makar-ts.github.io/FunkyTreesEditor/">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Funky Trees Editor",
+    "url": "https://makar-ts.github.io/FunkyTreesEditor/",
+    "description": "Online editor for creating and editing SimplePlanes 2 Funky Trees."
+    "author": {
+      "@type": "Person",
+      "name": "Makar-Ts"
+    },
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+
   <link rel="stylesheet" href="./main.css">
 </head>
 <body>
+  <h1 class="seo-hidden">Funky Trees Editor</h1>
+  <section class="seo-hidden">
+    <h2>About</h2>
+    <p>
+      Funky Trees Editor - online editor for creating and editing SimplePlanes 2 Funky Trees.
+    </p>
+  </section>
+
   <div id="tabs" class="scrollbar">
     <div id="tabs_container">
 
     </div>
-    <button id="add_tab">+</button>
+    <button id="add_tab" aria-label="Add tab">+</button>
   </div>
   <div id="editor"></div>
 
   <div id="toolbar">
-    <div class="button" id="copy">
-      <img src="./assets/icons/copy_3_line.svg" alt="copy">
+    <div class="button" id="copy" aria-label="Copy code">
+      <img loading="lazy" src="./assets/icons/copy_3_line.svg" alt="copy">
       <span>&nbsp;Copy</span>
     </div>
-    <div class="button" id="info">
-      <img src="./assets/icons/information_line.svg" alt="info">
+    <div class="button" id="info" aria-label="Information">
+      <img loading="lazy" src="./assets/icons/information_line.svg" alt="info">
       <span>&nbsp;Info</span>
     </div>
-    <div class="button" id="change_logs">
-      <img src="./assets/icons/notebook_2_line.svg" alt="info">
+    <div class="button" id="change_logs" aria-label="Change logs">
+      <img loading="lazy" src="./assets/icons/notebook_2_line.svg" alt="info">
       <span>&nbsp;Change Logs</span>
     </div>
   </div>
@@ -56,14 +103,14 @@
         © 2026 Copyright Makar-Ts
       </p>
 
-      <button id="close_info_modal" class="close">×</button>
+      <button id="close_info_modal" class="close" aria-label="Close modal">×</button>
     </div>
   </div>
 
 
   <div id="change_logs_modal" class="modal">
     <div id="change_logs_modal_container" class="container">
-      <button id="close_change_logs_modal" class="close">×</button>
+      <button id="close_change_logs_modal" class="close" aria-label="Close modal">×</button>
 
       <div id="change_logs_modal_logs" class="scrollbar">
 
