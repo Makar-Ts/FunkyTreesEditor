@@ -204,4 +204,14 @@ input {
   background-size: 16px;
   padding-left: 10px;
   cursor: pointer;
+
+  transition: .15s;
+
+  &:hover {
+    opacity: 80%;
+  }
+
+  &:active {
+    opacity: 50%;
+  }
 }
