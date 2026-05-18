@@ -454,6 +454,14 @@ export const funkyDocs = {
         explanation: "If condition is true, returns valueIfTrue; otherwise returns valueIfFalse." 
       },
     ],
+    utils: [
+      { 
+        symbol: "|=", 
+        description: "Field assignment operator", 
+        example: "Field1 |= Funky Trees", 
+        explanation: "Defines a new field called Field1" 
+      },
+    ]
   },
 
   misc: {

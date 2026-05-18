@@ -235,7 +235,7 @@ monaco.languages.registerSignatureHelpProvider("funky", {
 
 
 function findOperator(symbol) {
-  const categories = ['math', 'comparison', 'boolean', 'ternary'];
+  const categories = ['math', 'comparison', 'boolean', 'ternary', 'utils'];
   for (const category of categories) {
     const op = funkyDocs.operators[category]?.find(op => op.symbol === symbol);
     if (op) return { ...op, category };
