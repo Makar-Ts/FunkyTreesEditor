@@ -4,6 +4,10 @@ import { editor } from '../editor/main.js'
 const toolbar = document.getElementById('toolbar');
 const copy = document.getElementById('copy');
 
+const info = document.getElementById('info');
+const infoModal = document.getElementById('info_modal');
+const closeInfoModal = document.getElementById('close_info_modal');
+
 copy.addEventListener('click', (e) => {
   navigator.clipboard.writeText(editor.getValue())
     .then(() => {
@@ -18,6 +22,14 @@ copy.addEventListener('click', (e) => {
 
       setTimeout(() => copy.style['animation'] = undefined, 2000);
     })
+})
+
+info.addEventListener('click', () => {
+  infoModal.style['display'] = 'block';
+})
+
+closeInfoModal.addEventListener('click', () => {
+  infoModal.style['display'] = 'none';
 })
 
 

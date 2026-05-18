@@ -1,0 +1,17 @@
+This project includes third-party software components governed by the following licenses.
+
+
+Monaco Editor
+Copyright (c) Microsoft Corporation
+Source: https://github.com/microsoft/monaco-editor
+License: MIT License
+
+
+MingCute Icons
+Copyright (c) MingCute Design
+Source: https://github.com/Richard9394/MingCute?tab=Apache-2.0-1-ov-file#readme
+License: Apache License 2.0
+
+
+
+This software is provided "AS IS", without warranty of any kind.

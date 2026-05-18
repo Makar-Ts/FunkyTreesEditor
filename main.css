@@ -27,6 +27,15 @@ input {
   background-color: transparent;
 }
 
+a {
+  color: aqua;
+}
+
+code {
+  opacity: 90%;
+  background-color: #1212127d;
+}
+
 .scrollbar::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -143,9 +152,14 @@ input {
 
 #toolbar {
   position: fixed;
+  z-index: 5;
 
   left: 20px;
   bottom: 20px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 
   background-color: var(--toolbar-background);
   border: 1px solid var(--toolbar-border);
@@ -182,6 +196,52 @@ input {
     }
 
     --blink-color: lime;
+  }
+}
+
+#info_modal {
+  position: fixed;
+  display: none;
+  z-index: 15;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  #info_modal_container {
+    position: absolute;
+
+    background-color: var(--editor-background);
+    box-shadow: 0px 8px 15px 12px rgba(0, 0, 0, 0.2);
+
+    color: var(--text);
+    font-size: 14px;
+
+
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    padding: 10px 20px;
+
+    #close_info_modal {
+      position: absolute;
+      right: -25px;
+      top: 0;
+
+      cursor: pointer;
+
+      font-size: 20px;
+
+      color: var(--text);
+      background-color: transparent;
+      border: none;
+    }
   }
 }
 
