@@ -1,7 +1,8 @@
 import * as monaco from "../libs/monaco-editor/main.js";
-import { editor } from '../editor/main.js'
+import { editor } from '../editor/main.js';
 
-import './change-logs/main.js'
+import './change-logs/main.js';
+import './import/main.js';
 
 const toolbar = document.getElementById('toolbar');
 const copy = document.getElementById('copy');

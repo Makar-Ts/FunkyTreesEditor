@@ -77,6 +77,10 @@
       <img loading="lazy" src="./assets/icons/copy_3_line.svg" alt="copy">
       <span>&nbsp;Copy</span>
     </div>
+    <div class="button" id="import_xml" aria-label="Import XML">
+      <img loading="lazy" src="./assets/icons/file_import_line.svg" alt="info">
+      <span>&nbsp;Import XML</span>
+    </div>
     <div class="button" id="info" aria-label="Information">
       <img loading="lazy" src="./assets/icons/information_line.svg" alt="info">
       <span>&nbsp;Info</span>
@@ -84,6 +88,28 @@
     <div class="button" id="change_logs" aria-label="Change logs">
       <img loading="lazy" src="./assets/icons/notebook_2_line.svg" alt="info">
       <span>&nbsp;Change Logs</span>
+    </div>
+  </div>
+
+
+  <div id="import_modal" class="modal">
+    <div id="import_modal_container" class="container">
+      <label for="imported_file">
+        Click to choose the file
+      </label>
+      <input type="file" id="imported_file">
+      
+      <div class="line">
+        <input type="checkbox" id="format_import">
+        <label for="format_import">Format priority and activator</label>
+      </div>
+      
+      <div id="import_errors"></div>
+
+      <div id="imported_craft_specs"></div>
+
+      <button id="import_craft">Import</button>
+      <button id="close_import_modal" class="close" aria-label="Close modal">×</button>
     </div>
   </div>
 
