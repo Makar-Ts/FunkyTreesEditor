@@ -12,6 +12,13 @@ export const CHANGE_LOGS_HTML_TEMPLATE = `
 
 export const CHANGE_LOGS = [
   {
+    name: "0.6.0",
+    tags: ["0.6.0.1", "0.6.0"],
+    date: new Date(2026, 5, 19),
+    content: `<p>Added the ability to import plane XML files.</p>
+<p>Toolbar design slightly updated.</p>`,
+  },
+  {
     name: "0.5.3",
     tags: ["0.5.3"],
     date: new Date(2026, 5, 19),
