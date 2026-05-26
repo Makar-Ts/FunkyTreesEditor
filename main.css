@@ -1,7 +1,7 @@
 body {
   margin: 0;
 
-  --tabs-height: 40px;
+  --tabs-height: 35px;
 
   --editor-background: #1E1E1E;
 
@@ -97,7 +97,7 @@ code {
       width: fit-content;
 
       color: var(--text);
-      font-size: 16px;
+      font-size: 14px;
 
       box-sizing: border-box;
 
@@ -127,7 +127,7 @@ code {
       .tab-close {
         position: absolute;
         right: 5px;
-        top: calc( var(--tabs-height) / 2 - 8px );
+        top: calc( var(--tabs-height) / 2 - 10px );
 
         color: var(--text);
         background-color: transparent;

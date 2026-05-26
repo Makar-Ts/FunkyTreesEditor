@@ -50,7 +50,7 @@ const calculateMaxHeight = () => {
     const rect = el.getBoundingClientRect();
 
     const dist = Math.abs(mid - ((rect.bottom + rect.top) / 2));
-    console.log(dist, rect.height);
+
     if (dist <= minDistance) {
       minDistance = dist;
       h = rect.height;

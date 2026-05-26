@@ -6,7 +6,6 @@ import { validateVariable } from "./validate-variable.js";
 export function validate(ast, variables, contentRange) {
   const diagnostics = [];
   function addDiagnostics(r) {
-    console.log(r)
     const start = toGlobalPosition(
       new Position(r.startLineNumber, r.startColumn), contentRange
     )
