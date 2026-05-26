@@ -1,0 +1,1 @@
+export const ON_TABS_CHANGED_EVENT = 'tabs:changed';

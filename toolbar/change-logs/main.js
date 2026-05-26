@@ -78,7 +78,7 @@ closeModal.addEventListener('click', () => {
 const lastVievedLog = localStorage.getItem('lastLog');
 if (!lastVievedLog) {
   localStorage.setItem('lastLog', CHANGE_LOGS[0].name);
-  showAmount = CHANGE_LOGS.length;
+  showAmount = Math.min(CHANGE_LOGS.length, 3);
   show();
 } else if (lastVievedLog != CHANGE_LOGS[0].name) {
   const index = CHANGE_LOGS.findIndex((v) => v.name == lastVievedLog);

@@ -7,9 +7,10 @@ import variables from './pipeline/m01-variables.js'
 import decorations from './pipeline/m02-decorations.js'
 import { validate } from './pipeline/m03-validate/v01-main.js';
 import { handleParsingError } from './helpers/handle-parsing-error.js';
+import { ON_TABS_CHANGED_EVENT } from '../tabs/constant.js';
 
 
-editor.onDidChangeModelContent(() => {
+function validateModel() {
   const model = editor.getModel();
   let diagnostics = [];
 
@@ -51,4 +52,8 @@ editor.onDidChangeModelContent(() => {
   }
 
   monaco.editor.setModelMarkers(model, "funky", diagnostics);
-});
+}
+
+
+editor.onDidChangeModelContent(validateModel);
+window.addEventListener(ON_TABS_CHANGED_EVENT, validateModel);
