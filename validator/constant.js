@@ -1,0 +1,1 @@
+export const ON_VALIDATION_ENDED = 'validation:ended';
