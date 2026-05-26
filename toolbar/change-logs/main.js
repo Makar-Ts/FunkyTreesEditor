@@ -88,6 +88,8 @@ if (!lastVievedLog) {
     showAmount = index;
   }
 
+  showAmount = Math.min(showAmount, 3);
+
   localStorage.setItem('lastLog', CHANGE_LOGS[0].name);
   show();
 }
