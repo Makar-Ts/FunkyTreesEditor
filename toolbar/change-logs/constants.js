@@ -12,6 +12,15 @@ export const CHANGE_LOGS_HTML_TEMPLATE = `
 
 export const CHANGE_LOGS = [
   {
+    name: "0.6.1",
+    tags: ["0.6.1", "0.6.1.b6", "0.6.1.b5", "0.6.1.b4", "0.6.1.b3", "0.6.1.b2", "0.6.1.b1"],
+    date: new Date(2026, 5, 27),
+    content: `<p>Added a top bar displaying breadcrumbs, the cursor position, and the number of functions.</p>
+<p>Tabs now change not just the text, but the Text Model (preserving the change history).</p>
+<p>Fixed a bug where validation did not occur if there were no fields, as well as the check for duplicate fields.</p>
+<p>The number of changelogs displayed at a time is now limited.</p>`,
+  },
+  {
     name: "0.6.0",
     tags: ["0.6.0.1", "0.6.0"],
     date: new Date(2026, 5, 19),

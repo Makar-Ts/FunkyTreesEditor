@@ -1,5 +1,5 @@
 import { Position } from "../../../libs/monaco-editor/main.js";
-import { toGlobalPosition } from "../../helpers/to-global-position.js";
+import { toGlobalPosition } from "../../../utils/to-global-position.js";
 import { validateFunctionCall } from "./validate-function-call.js";
 import { validateVariable } from "./validate-variable.js";
 

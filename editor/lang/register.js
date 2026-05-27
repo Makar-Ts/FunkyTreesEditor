@@ -149,7 +149,7 @@ monaco.languages.registerCompletionItemProvider("funky", {
 ${meta.description}
 
 ### Parameters
-${meta.params.map((x) => `- ${x}`).join("\n")}
+${meta.params.map((x) => `- ${x.name}: ${x.type}` + (x.note ? ` (${x.note})` : '')).join("\n")}
 
 ### Example
 \`\`\`
@@ -223,8 +223,8 @@ monaco.languages.registerSignatureHelpProvider("funky", {
 
             documentation: meta.description,
 
-            parameters: meta.params.map((p) => ({
-              label: p,
+            parameters: meta.params.map((x) => ({
+              label: x.name,
             })),
           },
         ],
@@ -286,7 +286,7 @@ monaco.languages.registerHoverProvider("funky", {
           {
             value: `
 ### Parameters
-${fn.params.map((x) => `- ${x}`).join("\n")}
+${fn.params.map((x) => `- ${x.name}: ${x.type}` + (x.note ? ` (${x.note})` : '')).join("\n")}
 `,
           },
           {
