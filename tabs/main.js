@@ -189,6 +189,19 @@ export function createFilledTab(name, value) {
   switchTab(id);
 }
 
+export function createFilledTab(name, value) {
+  const id = generateId();
+  const newTab = {
+    id,
+    name,
+    value
+  };
+
+  tabs.push(newTab);
+  switchTab(id);
+}
+
+
 function deleteTab(id) {
   if (tabs.length <= 1) return;
 
