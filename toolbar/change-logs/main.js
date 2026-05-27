@@ -50,7 +50,7 @@ const calculateMaxHeight = () => {
     const rect = el.getBoundingClientRect();
 
     const dist = Math.abs(mid - ((rect.bottom + rect.top) / 2));
-    console.log(dist, rect.height);
+
     if (dist <= minDistance) {
       minDistance = dist;
       h = rect.height;
@@ -78,7 +78,7 @@ closeModal.addEventListener('click', () => {
 const lastVievedLog = localStorage.getItem('lastLog');
 if (!lastVievedLog) {
   localStorage.setItem('lastLog', CHANGE_LOGS[0].name);
-  showAmount = CHANGE_LOGS.length;
+  showAmount = Math.min(CHANGE_LOGS.length, 3);
   show();
 } else if (lastVievedLog != CHANGE_LOGS[0].name) {
   const index = CHANGE_LOGS.findIndex((v) => v.name == lastVievedLog);
@@ -87,6 +87,8 @@ if (!lastVievedLog) {
   } else {
     showAmount = index;
   }
+
+  showAmount = Math.min(showAmount, 3);
 
   localStorage.setItem('lastLog', CHANGE_LOGS[0].name);
   show();

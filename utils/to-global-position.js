@@ -1,4 +1,4 @@
-import { Range, Position } from '../../libs/monaco-editor/main.js'
+import { Range, Position } from '../libs/monaco-editor/main.js'
 
 /**
  * @param {Position} position 

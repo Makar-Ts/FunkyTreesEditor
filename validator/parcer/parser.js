@@ -1,4 +1,5 @@
 import { BadToken, UnexpectedCharacter, UnexpectedToken } from "./parser-errors.js";
+import * as monaco from '../../../libs/monaco-editor/main.js';
 
 const TOKEN = {
   EOF: "EOF",
@@ -41,14 +42,14 @@ const TOKEN = {
 };
 
 export class Token {
-  constructor(type, value, line, column) {
+  constructor(type, value, range) {
     this.type = type;
     this.value = value;
 
-    this.line = line;
-    this.column = column;
+    this.range = range;
   }
 }
+
 
 class Tokenizer {
   constructor(input) {
@@ -58,6 +59,16 @@ class Tokenizer {
 
     this.line = 1;
     this.column = 1;
+  }
+
+
+  makeRange(startLine, startColumn, endLine, endColumn) {
+    return new monaco.Range(
+      startLine,
+      startColumn,
+      endLine,
+      endColumn,
+    );
   }
 
   eof() {
@@ -97,7 +108,16 @@ class Tokenizer {
       value += this.advance();
     }
 
-    return new Token(TOKEN.NUMBER, Number(value), startLine, startColumn);
+    return new Token(
+      TOKEN.NUMBER,
+      Number(value),
+      this.makeRange(
+        startLine,
+        startColumn,
+        this.line,
+        this.column,
+      ),
+    );
   }
 
   readIdentifier() {
@@ -110,15 +130,22 @@ class Tokenizer {
       value += this.advance();
     }
 
+    const range = this.makeRange(
+      startLine,
+      startColumn,
+      this.line,
+      this.column,
+    );
+
     if (value === "true") {
-      return new Token(TOKEN.TRUE, true, startLine, startColumn);
+      return new Token(TOKEN.TRUE, true, range);
     }
 
     if (value === "false") {
-      return new Token(TOKEN.FALSE, false, startLine, startColumn);
+      return new Token(TOKEN.FALSE, false, range);
     }
 
-    return new Token(TOKEN.IDENT, value, startLine, startColumn);
+    return new Token(TOKEN.IDENT, value, range);
   }
 
   readString() {
@@ -135,14 +162,32 @@ class Tokenizer {
 
     this.advance();
 
-    return new Token(TOKEN.STRING, value, startLine, startColumn);
+    return new Token(
+      TOKEN.STRING,
+      value,
+      this.makeRange(
+        startLine,
+        startColumn,
+        this.line,
+        this.column,
+      ),
+    );
   }
 
   nextToken() {
     this.skipWhitespace();
 
     if (this.eof()) {
-      return new Token(TOKEN.EOF, null, this.line, this.column);
+      return new Token(
+        TOKEN.EOF,
+        null,
+        this.makeRange(
+          this.line,
+          this.column,
+          this.line,
+          this.column,
+        ),
+      );
     }
 
     const ch = this.peek();
@@ -173,10 +218,22 @@ class Tokenizer {
     };
 
     if (map2[two]) {
+      const startLine = this.line;
+      const startColumn = this.column;
+
       this.advance();
       this.advance();
 
-      return new Token(map2[two], two, this.line, this.column - 2);
+      return new Token(
+        map2[two],
+        two,
+        this.makeRange(
+          startLine,
+          startColumn,
+          this.line,
+          this.column,
+        ),
+      );
     }
 
     // one-char
@@ -209,9 +266,21 @@ class Tokenizer {
     };
 
     if (map1[ch]) {
+      const startLine = this.line;
+      const startColumn = this.column;
+
       this.advance();
 
-      return new Token(map1[ch], ch, this.line, this.column - 1);
+      return new Token(
+        map1[ch],
+        ch,
+        this.makeRange(
+          startLine,
+          startColumn,
+          this.line,
+          this.column,
+        ),
+      );
     }
 
     throw new UnexpectedCharacter(ch, this.line, this.column);
@@ -311,15 +380,19 @@ class Parser {
     if (token.type === TOKEN.MINUS || token.type === TOKEN.BANG) {
       this.eat();
 
+      const argument = this.parseExpression(8);
+
       return {
         type: "UnaryExpression",
 
         operator: token.value,
 
-        argument: this.parseExpression(8),
+        argument,
 
-        line: token.line,
-        column: token.column,
+        range: this.mergeRanges(
+          token.range,
+          argument.range,
+        ),
       };
     }
 
@@ -338,8 +411,7 @@ class Parser {
 
         value: token.value,
 
-        line: token.line,
-        column: token.column,
+        range: token.range,
       };
     }
 
@@ -352,8 +424,7 @@ class Parser {
 
         value: token.value,
 
-        line: token.line,
-        column: token.column,
+        range: token.range,
       };
     }
 
@@ -366,8 +437,7 @@ class Parser {
 
         value: token.value,
 
-        line: token.line,
-        column: token.column,
+        range: token.range,
       };
     }
 
@@ -377,6 +447,8 @@ class Parser {
 
       // function call
       if (this.current().type === TOKEN.LPAREN) {
+        const startRange = token.range;
+
         this.eat(TOKEN.LPAREN);
 
         const args = [];
@@ -389,7 +461,7 @@ class Parser {
           }
         }
 
-        this.eat(TOKEN.RPAREN);
+        const rparen = this.eat(TOKEN.RPAREN);
 
         return {
           type: "CallExpression",
@@ -398,8 +470,10 @@ class Parser {
 
           args,
 
-          line: token.line,
-          column: token.column,
+          range: this.mergeRanges(
+            startRange,
+            rparen.range,
+          ),
         };
       }
 
@@ -408,8 +482,7 @@ class Parser {
 
         name: token.value,
 
-        line: token.line,
-        column: token.column,
+        range: token.range,
       };
     }
 
@@ -448,8 +521,10 @@ class Parser {
         consequent,
         alternate,
 
-        line: token.line,
-        column: token.column,
+        range: this.mergeRanges(
+          left.range, 
+          alternate.range
+        )
       };
     }
 
@@ -466,9 +541,20 @@ class Parser {
       left,
       right,
 
-      line: token.line,
-      column: token.column,
+      range: this.mergeRanges(
+        left.range,
+        right.range,
+      ),
     };
+  }
+
+  mergeRanges(start, end) {
+    return new monaco.Range(
+      start.startLineNumber,
+      start.startColumn,
+      end.endLineNumber,
+      end.endColumn,
+    );
   }
 }
 

@@ -161,6 +161,14 @@ export default function recalculateVariables(model) {
       });
     }
 
+    if (variables.some(v => v.name?.content === name?.content)) {
+      errors.push({
+        type: 'DUPLICATE_NAME',
+        message: 'Duplicate field name',
+        range: blockRange,
+      });
+    }
+
     const next = pairs[i + 1];
     let endLineNumber, endColumn;
 

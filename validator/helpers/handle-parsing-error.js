@@ -1,7 +1,7 @@
 import * as monaco from '../../libs/monaco-editor/main.js';
 
 import { BadToken, UnexpectedCharacter, UnexpectedToken } from '../parcer/parser-errors.js';
-import { toGlobalPosition } from './to-global-position.js';
+import { toGlobalPosition } from '../../utils/to-global-position.js';
 
 export function handleParsingError(e, variable) {
   if (e instanceof UnexpectedCharacter) {

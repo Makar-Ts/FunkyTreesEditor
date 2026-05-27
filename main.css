@@ -1,7 +1,8 @@
 body {
   margin: 0;
 
-  --tabs-height: 40px;
+  --tabs-height: 35px;
+  --stats-height: 20px;
 
   --editor-background: #1E1E1E;
 
@@ -14,6 +15,7 @@ body {
   --toolbar-border: rgb(46, 46, 46);
 
   --text: white;
+  --text-low: rgb(190, 190, 190);
 
   font-family: Menlo, Monaco, "Courier New", monospace;
 
@@ -97,7 +99,7 @@ code {
       width: fit-content;
 
       color: var(--text);
-      font-size: 16px;
+      font-size: 14px;
 
       box-sizing: border-box;
 
@@ -127,7 +129,7 @@ code {
       .tab-close {
         position: absolute;
         right: 5px;
-        top: calc( var(--tabs-height) / 2 - 8px );
+        top: calc( var(--tabs-height) / 2 - 10px );
 
         color: var(--text);
         background-color: transparent;
@@ -159,9 +161,70 @@ code {
   }
 }
 
+#stats {
+  height: var(--stats-height);
+
+  font-size: 12px;
+  line-height: var(--stats-height);
+  padding: 0px 36px;
+
+  background-color: var(--editor-background);
+
+  color: var(--text-low);
+
+
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+
+  #breadcrumbs {
+    flex-grow: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+
+    > a {
+      text-decoration: none;
+
+      > i {
+        display: inline;
+        font-size: 12px;
+        line-height: var(--stats-height);
+        vertical-align: bottom;
+
+        &::before {
+          text-decoration: none !important;
+        }
+      }
+
+      > span {
+        padding-left: 2px;
+      }
+    }
+
+    > a:hover {
+      > span {
+        text-decoration: underline;
+      }
+    }
+
+    > a:not(:last-child)::after {
+      content: " > ";
+    }
+  }
+
+  > * {
+    white-space: nowrap;
+  }
+}
+
 #editor {
   width: 100vw;
-  height: calc(100vh - var(--tabs-height));
+  height: calc(100vh - var(--tabs-height) - var(--stats-height));
 }
 
 #toolbar {

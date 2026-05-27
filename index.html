@@ -54,6 +54,7 @@
   </script>
 
   <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="./codicon.css">
 </head>
 <body>
   <h1 class="seo-hidden">Funky Trees Editor</h1>
@@ -70,6 +71,19 @@
     </div>
     <button id="add_tab" aria-label="Add tab">+</button>
   </div>
+
+  <div id="stats">
+    <div id="breadcrumbs"></div>
+    <div id="cursor_position">
+      Row <span id="cursor_position_row">1</span
+    >, Col <span id="cursor_position_column">1</span
+    ><span id="cursor_selection_container" style="display: none;"> (selected <span id="cursor_selection_amount">0</span>)</span>
+    </div>
+    <div id="statistics">
+      Vars <span id="statistics_variables_amount">0</span>
+    </div>
+  </div>
+
   <div id="editor"></div>
 
   <div id="toolbar">
@@ -122,7 +136,7 @@
       </p>
       <p>
         Docs 
-        Link: <a href="https://snowflake0s.github.io/funkyguide/">FunkyGuide</a><br>
+        Link: <a href="https://snowflake0s.github.io/funkytrees/">FunkyGuide</a><br>
         Author: <a href="https://github.com/snowflake0s">Joshua Eah "SnoWFLakE0s"</a>
       </p><br>
       <p>
