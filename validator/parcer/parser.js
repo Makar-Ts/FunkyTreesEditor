@@ -1,5 +1,5 @@
 import { BadToken, UnexpectedCharacter, UnexpectedToken } from "./parser-errors.js";
-import * as monaco from '../../../libs/monaco-editor/main.js';
+import * as monaco from '../../libs/monaco-editor/main.js';
 
 const TOKEN = {
   EOF: "EOF",
