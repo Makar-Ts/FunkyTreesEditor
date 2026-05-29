@@ -182,18 +182,6 @@ export function createFilledTab(name, value) {
   switchTab(id);
 }
 
-export function createFilledTab(name, value) {
-  const id = generateId();
-  const newTab = {
-    id,
-    name,
-    value
-  };
-
-  tabs.push(newTab);
-  switchTab(id);
-}
-
 
 function deleteTab(id) {
   if (tabs.length <= 1) return;
@@ -317,3 +305,37 @@ addTabBtn.addEventListener('click', createTab);
 
   triggerTabChangeEvent();
 })();
+
+
+
+const newTabSelector = document.getElementById('new_tab_selector');
+
+const addButton = document.getElementById('new_tab_selector_add');
+const defaultButton = document.getElementById('new_tab_selector_default');
+
+function updateSelectorPosition() {
+  newTabSelector.style.setProperty('--move', `0px`);
+
+  const rect = newTabSelector.getBoundingClientRect();
+
+  let offsetX = 0;
+  const padding = 8;
+
+  if (rect.left < 0) {
+    offsetX = Math.abs(rect.left) + padding;
+  }
+
+  if (rect.right > window.innerWidth) {
+    offsetX = -(rect.right - window.innerWidth + padding);
+  }
+
+  newTabSelector.style.setProperty('--move', `${offsetX}px`);
+}
+
+document.getElementById('add_tab_button_container').addEventListener('mouseenter', () => {
+  requestAnimationFrame(updateSelectorPosition);
+});
+
+
+addButton.addEventListener('click', createTab);
+defaultButton.addEventListener('click', () => createFilledTab('default', DEFAULT_PAGE));

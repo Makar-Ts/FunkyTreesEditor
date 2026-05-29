@@ -69,7 +69,14 @@
     <div id="tabs_container">
 
     </div>
-    <button id="add_tab" aria-label="Add tab">+</button>
+    <div class="add-tab-button-container" id="add_tab_button_container"
+      ><button id="add_tab" aria-label="Add tab"
+      >+</button><div class="new-tab-selector" id="new_tab_selector">
+        <button id="new_tab_selector_add"><span class="codicon codicon-new-file"></span>Empty tab</button>
+        <button id="new_tab_selector_default"><span class="codicon codicon-repo"></span>Default tab</button>
+        <button id="new_tab_selector_import"><span class="codicon codicon-file-code"></span>Import XML</button>
+      </div>
+    </div>
   </div>
 
   <div id="stats">
