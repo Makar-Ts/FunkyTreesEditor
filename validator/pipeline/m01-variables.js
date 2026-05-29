@@ -1,4 +1,7 @@
 import * as monaco from '../../libs/monaco-editor/main.js';
+import { isInsideAnyRange } from '../../utils/is-inside-any-range.js';
+import { stripComments } from '../../utils/strip-comments.js';
+import { getCommentRanges } from '../helpers/get-comment-ranges.js';
 
 export const VARIABLE_REGEX = /^( *\|>? *\w+)/;
 
@@ -44,7 +47,7 @@ function parseBlock(model, open, close) {
     );
 
     name = {
-      content: model.getValueInRange(nameRange).trim(),
+      content: stripComments(model.getValueInRange(nameRange)).trim(),
       range: nameRange,
     };
   } else {
@@ -56,7 +59,7 @@ function parseBlock(model, open, close) {
     );
 
     name = {
-      content: model.getValueInRange(nameRange).trim(),
+      content: stripComments(model.getValueInRange(nameRange)).trim(),
       range: nameRange,
     };
 
@@ -114,8 +117,13 @@ export default function recalculateVariables(model) {
   variableByLine.clear();
   errors.length = 0;
 
-  const opens = model.findMatches(OPEN_RE, false, true, false, null, true);
-  const closes = model.findMatches(CLOSE_RE, false, true, false, null, true);
+  const commentRanges = getCommentRanges(model);
+
+  const opens = model.findMatches(OPEN_RE, false, true, false, null, true)
+    .filter(m => !isInsideAnyRange(m.range, commentRanges));
+
+  const closes = model.findMatches(CLOSE_RE, false, true, false, null, true)
+    .filter(m => !isInsideAnyRange(m.range, commentRanges));
 
   const usedCloses = new Set();
   const pairs = [];

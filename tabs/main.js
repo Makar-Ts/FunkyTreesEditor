@@ -7,7 +7,7 @@ import {
 } from './compress.js';
 
 import * as monaco from '../libs/monaco-editor/main.js';
-import { ON_TABS_CHANGED_EVENT } from './constant.js';
+import { DEFAULT_PAGE, ON_TABS_CHANGED_EVENT } from './constant.js';
 
 let tabs = [];
 let activeTabId = null;
@@ -37,14 +37,7 @@ tabs = [
   createTabObject({
     id: 'main',
     name: 'main',
-    value: `|> SmoothFlaps
-\t; 0
-\t; Activate2 
-|= Activate1 
-\t? -Pitch 
-\t: -Pitch * clamp01((1 - (IAS * 3.6 - 1200) / 600))
-
-|> Field2 |= SmoothFlaps > 0.9 ? 1 : 0`
+    value: DEFAULT_PAGE
   })
 ];
 

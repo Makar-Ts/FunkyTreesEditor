@@ -12,7 +12,7 @@ const infoModal = document.getElementById('info_modal');
 const closeInfoModal = document.getElementById('close_info_modal');
 
 copy.addEventListener('click', (e) => {
-  navigator.clipboard.writeText(editor.getValue())
+  navigator.clipboard.writeText(stripComments(editor.getValue()).trim())
     .then(() => {
       copy.style['--blink-color'] = 'lime';
       copy.style['animation'] = 'blink 2s ease-out 0s 1 forwards';
