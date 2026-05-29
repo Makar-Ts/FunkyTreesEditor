@@ -39,6 +39,10 @@ const TOKEN = {
 
   AND: "&",
   OR: "|",
+
+  OLCMNT: "//",
+  MLCMNT: "/*",
+  MLCMNTCLS: "*/"
 };
 
 export class Token {
@@ -174,6 +178,47 @@ class Tokenizer {
     );
   }
 
+  skipComment(type) {
+    let value = "";
+
+    this.advance();
+    this.advance();
+
+    if (type === TOKEN.MLCMNT) {
+      while (!this.eof()) {
+        if (this.peek() + this.peek(1) === TOKEN.MLCMNTCLS) {
+          this.advance();
+          this.advance();
+
+          return;
+        }
+
+        value += this.advance();
+      }
+
+      return new Token(
+        TOKEN.EOF,
+        null,
+        this.makeRange(
+          this.line,
+          this.column,
+          this.line,
+          this.column,
+        ),
+      );
+    }
+
+    if (type === TOKEN.OLCMNT) {
+      while (!this.eof() && this.peek() !== "\n") {
+        value += this.advance();
+      }
+
+      return;
+    }
+
+    throw new Error("Unknown comment type");
+  }
+
   nextToken() {
     this.skipWhitespace();
 
@@ -210,6 +255,17 @@ class Tokenizer {
     // two-char operators
 
     const two = ch + this.peek(1);
+
+
+    const commentMap = {
+      "//": TOKEN.OLCMNT,
+      "/*": TOKEN.MLCMNT
+    }
+
+    if (commentMap[two]) {
+      return this.skipComment(commentMap[two]);
+    }
+
 
     const map2 = {
       "<=": TOKEN.LTE,
@@ -291,6 +347,7 @@ class Tokenizer {
 
     while (true) {
       const token = this.nextToken();
+      if (!token) continue;
 
       tokens.push(token);
 

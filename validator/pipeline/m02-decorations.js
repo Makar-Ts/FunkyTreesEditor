@@ -26,6 +26,7 @@ export default function generateDecorations(editor, variableByLine) {
 
 
 import { editor } from "../../editor/main.js";
+import { stripComments } from '../../utils/strip-comments.js';
 
 editor.onMouseDown((e) => {
   if (e.target.type !== monaco.editor.MouseTargetType.GUTTER_GLYPH_MARGIN) return;
@@ -36,7 +37,7 @@ editor.onMouseDown((e) => {
   const value = lastVarByLine.get(line);
   if (!value) return;
 
-  navigator.clipboard.writeText(value.content.content)
+  navigator.clipboard.writeText(stripComments(value.content.content).trim())
     .then(() => {
       console.log("copied");
     })

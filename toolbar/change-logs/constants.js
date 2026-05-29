@@ -12,6 +12,14 @@ export const CHANGE_LOGS_HTML_TEMPLATE = `
 
 export const CHANGE_LOGS = [
   {
+    name: "0.6.2",
+    tags: ["0.6.2", "0.6.1.b6", "0.6.2.b4", "0.6.2.b3", "0.6.2.b2", "0.6.2.b1"],
+    date: new Date(2026, 5, 29),
+    content: `<p>Added the ability to leave comments in the code.</p>
+<p>Added the ability to share tabs.</p>
+<p>Changed the data storage system (URL parameters > local storage).</p>`,
+  },
+  {
     name: "0.6.1",
     tags: ["0.6.1", "0.6.1.b6", "0.6.1.b5", "0.6.1.b4", "0.6.1.b3", "0.6.1.b2", "0.6.1.b1"],
     date: new Date(2026, 5, 27),

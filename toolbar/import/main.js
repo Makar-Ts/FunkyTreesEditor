@@ -111,3 +111,9 @@ importXml.addEventListener('click', () => {
 closeModal.addEventListener('click', () => {
   modal.style['display'] = 'none';
 });
+
+
+const importTabsButton = document.getElementById('new_tab_selector_import');
+importTabsButton.addEventListener('click', () => {
+  modal.style['display'] = 'block';
+});

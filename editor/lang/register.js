@@ -12,6 +12,10 @@ monaco.languages.setMonarchTokensProvider("funky", {
 
   tokenizer: {
     root: [
+      // comments
+      [/\/\/.*$/, "comment"],
+      [/\/\*/, "comment", "@comment"],
+
       // strings
       [/".*?"/, "string"],
 
@@ -64,6 +68,12 @@ monaco.languages.setMonarchTokensProvider("funky", {
       // commas
       [/,/, "delimiter"],
     ],
+
+    comment: [
+      [/[^\/*]+/, "comment"],
+      [/\*\//, "comment", "@pop"],
+      [/[\/*]/, "comment"],
+    ],
   },
 });
 
@@ -82,6 +92,8 @@ monaco.editor.defineTheme("funky-dark", {
     { token: "string", foreground: "CE9178" },
 
     { token: "operator", foreground: "D4D4D4" },
+
+    { token: "comment", foreground: "6A9955" },
   ],
 
   colors: {
@@ -339,4 +351,9 @@ monaco.languages.setLanguageConfiguration("funky", {
       close: "|="
     }
   ],
+
+  comments: {
+    lineComment: '//',
+    blockComment: ['/*', '*/']
+  }
 });
