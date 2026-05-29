@@ -346,6 +346,7 @@ addTabBtn.addEventListener('click', createTab);
 
 function reload() {
   renderTabs();
+
   const initialTab = getTabById(activeTabId);
 
   if (initialTab) {
