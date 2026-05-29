@@ -190,7 +190,7 @@ class Tokenizer {
           this.advance();
           this.advance();
 
-          return value;
+          return;
         }
 
         value += this.advance();
@@ -213,7 +213,7 @@ class Tokenizer {
         value += this.advance();
       }
 
-      return value;
+      return;
     }
 
     throw new Error("Unknown comment type");
