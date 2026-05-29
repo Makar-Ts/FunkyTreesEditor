@@ -72,9 +72,10 @@
     <div class="add-tab-button-container" id="add_tab_button_container"
       ><button id="add_tab" aria-label="Add tab"
       >+</button><div class="new-tab-selector" id="new_tab_selector">
-        <button id="new_tab_selector_add"><span class="codicon codicon-new-file"></span>Empty tab</button>
-        <button id="new_tab_selector_default"><span class="codicon codicon-repo"></span>Default tab</button>
-        <button id="new_tab_selector_import"><span class="codicon codicon-file-code"></span>Import XML</button>
+        <button id="new_tab_selector_add" aria-label="Add empty tab"><span class="codicon codicon-new-file"></span>Empty tab</button>
+        <button id="new_tab_selector_default" aria-label="Add default tab"><span class="codicon codicon-repo"></span>Default tab</button>
+        <button id="new_tab_selector_import" aria-label="Import XML"><span class="codicon codicon-file-code"></span>Import XML</button>
+        <button id="new_tab_selector_shared" aria-label="Import Shared"><span class="codicon codicon-type-hierarchy-sub"></span>Import Shared</button>
       </div>
     </div>
   </div>
@@ -95,19 +96,23 @@
 
   <div id="toolbar">
     <div class="button" id="copy" aria-label="Copy code">
-      <img loading="lazy" src="./assets/icons/copy_3_line.svg" alt="copy">
+      <i class="codicon codicon-copy"></i>
       <span>&nbsp;Copy</span>
     </div>
-    <div class="button" id="import_xml" aria-label="Import XML">
+    <div class="button" id="share" aria-label="Share">
+      <i class="codicon codicon-share"></i>
+      <span>&nbsp;Share</span>
+    </div>
+    <div class="button" id="import_xml" aria-label="Import XML" style="display: none;">
       <img loading="lazy" src="./assets/icons/file_import_line.svg" alt="info">
       <span>&nbsp;Import XML</span>
     </div>
     <div class="button" id="info" aria-label="Information">
-      <img loading="lazy" src="./assets/icons/information_line.svg" alt="info">
+      <i class="codicon codicon-info"></i>
       <span>&nbsp;Info</span>
     </div>
     <div class="button" id="change_logs" aria-label="Change logs">
-      <img loading="lazy" src="./assets/icons/notebook_2_line.svg" alt="info">
+      <i class="codicon codicon-history"></i>
       <span>&nbsp;Change Logs</span>
     </div>
   </div>
@@ -162,6 +167,25 @@
       <div id="change_logs_modal_logs" class="scrollbar">
 
       </div>
+    </div>
+  </div>
+
+
+  <div id="share_modal" class="modal">
+    <div id="share_modal_container" class="container">
+      <button id="close_share_modal" class="close" aria-label="Close modal">×</button>
+
+      <p>Copy tab as:</p>
+      <button id="share_copy_url"><span class="codicon codicon-link"></span>URL (preferred)</button>
+      <button id="share_copy_data"><span class="codicon codicon-file-binary"></span>Data-string</button>
+    </div>
+  </div>
+
+  <div id="shared_modal" class="modal">
+    <div id="shared_modal_container" class="container">
+      <button id="close_shared_modal" class="close" aria-label="Close modal">×</button>
+
+      <input id="shared_input" type="text" placeholder="Paste URL or Data-string...">
     </div>
   </div>
 

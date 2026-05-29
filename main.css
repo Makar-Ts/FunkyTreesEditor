@@ -196,7 +196,7 @@ code {
 
       top: var(--tabs-height);
       padding: 5px;
-      width: 135px;
+      width: 145px;
 
       background-color: var(--editor-background);
       border: 1px solid var(--tabs-active-border);
@@ -415,6 +415,12 @@ code {
       transform: translateY(2px);
     }
 
+    i {
+      color: var(--text);
+
+      font-size: 22px;
+    }
+
     span {
       min-width: 0px;
       overflow-x: hidden;
@@ -600,19 +606,6 @@ code {
 }
 
 
-@keyframes blink {
-  0% {
-    box-shadow: none;
-  }
-  5% {
-    box-shadow: 0 0 0 4px var(--blink-color);
-  }
-  100% {
-    box-shadow: none;
-  }
-}
-
-
 .copyVarBtn {
   background: url("./assets/icons/copy_3_line.svg") center center no-repeat;
   background-size: 16px;
@@ -677,6 +670,109 @@ code {
     }
   }
 }
+
+
+#share_modal_container {
+  width: 200px;
+
+  p {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  > button:not(.close) {
+    background-color: var(--editor-background);
+    border: 1px solid var(--tabs-active-border);
+
+    color: var(--text);
+
+    width: 100%;
+    padding: 3px 10px 3px 5px;
+
+    text-align: justify;
+
+    --btn-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: var(--btn-shadow);
+    -moz-box-shadow: var(--btn-shadow);
+    box-shadow: var(--btn-shadow);
+
+    > span {
+      vertical-align: bottom;
+      margin-right: 3px;
+    }
+
+
+    transition: .15s;
+
+    &:hover {
+      transform: translateY(-2px);
+      --btn-shadow: 0px 4px 6px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      --btn-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.4);
+    }
+
+    &:last-child {
+      margin-top: 5px;
+    }
+  }
+}
+
+
+#shared_modal_container {
+  display: flex;
+  gap: 5px;
+
+  #shared_input {
+    flex-grow: 1;
+
+    border: 1px solid var(--tabs-active-border);
+
+    --btn-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: var(--btn-shadow);
+    -moz-box-shadow: var(--btn-shadow);
+    box-shadow: var(--btn-shadow);
+
+    transition: .15s;
+
+    &:focus {
+      transform: translateY(1px);
+      --btn-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  #shared_add {
+    background-color: var(--editor-background);
+    border: 1px solid var(--tabs-active-border);
+
+    color: var(--text);
+
+    padding: 3px 10px 3px 10px;
+
+    text-align: justify;
+
+    --btn-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: var(--btn-shadow);
+    -moz-box-shadow: var(--btn-shadow);
+    box-shadow: var(--btn-shadow);
+
+
+    transition: .15s;
+
+    &:hover {
+      transform: translateY(-2px);
+      --btn-shadow: 0px 4px 6px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      --btn-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
 
 #loader {
   position: fixed;
@@ -764,5 +860,17 @@ code {
   100% {
     height: 20px;
     box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@keyframes blink {
+  0% {
+    box-shadow: none;
+  }
+  5% {
+    box-shadow: 0 0 0 4px var(--blink-color);
+  }
+  100% {
+    box-shadow: none;
   }
 }

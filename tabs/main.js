@@ -9,6 +9,8 @@ import {
 import * as monaco from '../libs/monaco-editor/main.js';
 import { DEFAULT_PAGE, ON_TABS_CHANGED_EVENT } from './constant.js';
 
+import './shared/main.js';
+
 let tabs = [];
 let activeTabId = null;
 
@@ -62,7 +64,8 @@ function serializeTabs() {
   };
 }
 
-async function saveToUrl() {
+const SAVE_TO_URL = false;
+async function save() {
   try {
     const state = serializeTabs();
 
@@ -70,56 +73,105 @@ async function saveToUrl() {
     const compressed = await compressString(json);
     const base64 = uint8ArrayToBase64(compressed);
 
-    const url = new URL(window.location);
-    url.searchParams.set('tabs', encodeURIComponent(base64));
+    if (SAVE_TO_URL) {
+      const url = new URL(window.location);
+      url.searchParams.set('tabs', encodeURIComponent(base64));
 
-    history.replaceState(null, '', url);
+      history.replaceState(null, '', url);
+    } else {
+      localStorage.setItem('tabs', base64);
+    }
   } catch (e) {
     console.error('Failed to save tabs to URL', e);
   }
 }
 
-async function loadFromUrl() {
-  const url = new URL(window.location);
-  const encoded = url.searchParams.get('tabs');
+export async function exportCurrentTab() {
+  const tab = tabs.find(v => v.id === activeTabId);
+  if (!tab) console.error('Failed to export tab');
 
-  if (!encoded) return;
+  const data = {
+    activeTabId,
+    tabs: [{
+      id: tab.id,
+      name: tab.name,
+      value: tab.model.getValue()
+    }]
+  }
 
-  try {
-    const base64 = decodeURIComponent(encoded);
-    const compressed = base64ToUint8Array(base64);
+  const json = JSON.stringify(data);
+  const compressed = await compressString(json);
+  const base64 = uint8ArrayToBase64(compressed);
 
-    const decompressed = await decompressUint8Array(compressed);
+  return base64;
+}
 
-    const decoder = new TextDecoder();
-    const json = decoder.decode(decompressed);
 
-    const state = JSON.parse(json);
+export async function decodeToJson(b64) {
+  const base64 = decodeURIComponent(b64);
+  const compressed = base64ToUint8Array(base64);
 
-    if (
-      state.tabs &&
-      Array.isArray(state.tabs) &&
-      state.tabs.length > 0
-    ) {
-      // dispose old models
-      tabs.forEach(tab => tab.model?.dispose());
+  const decompressed = await decompressUint8Array(compressed);
 
-      tabs = state.tabs.map(tab =>
-        createTabObject({
-          id: tab.id,
-          name: tab.name,
-          value: tab.value
-        })
-      );
+  const decoder = new TextDecoder();
+  const json = decoder.decode(decompressed);
 
-      activeTabId = state.activeTabId || tabs[0].id;
+  return JSON.parse(json);
+}
 
-      if (!tabs.some(t => t.id === activeTabId)) {
-        activeTabId = tabs[0].id;
-      }
+export function loadState(state, prefix="", r=false) {
+  if (
+    state.tabs &&
+    Array.isArray(state.tabs) &&
+    state.tabs.length > 0
+  ) {
+    tabs.push(...state.tabs.map(tab =>
+      createTabObject({
+        id: prefix+tab.id,
+        name: tab.name,
+        value: tab.value
+      })
+    ));
+
+    activeTabId = state.activeTabId ? prefix+state.activeTabId : tabs[0].id;
+
+    if (!tabs.some(t => t.id === activeTabId)) {
+      activeTabId = tabs[0].id;
     }
-  } catch (e) {
-    console.error('Failed to load tabs from URL', e);
+
+    r && reload();
+
+    return true;
+  }
+}
+
+async function load() {
+  const url = new URL(globalThis.location);
+  const encoded = url.searchParams.get('tabs');
+  const local = localStorage.getItem('tabs');
+
+  if (!encoded && !local) return;
+
+  // dispose old models
+  tabs.forEach(tab => tab.model?.dispose());
+  tabs.length = 0;
+
+  if (local) {
+    loadState(await decodeToJson(local));
+  }
+
+  if (encoded) {
+    try {
+      loadState(await decodeToJson(encoded), 'url_');
+
+      const url = new URL(window.location);
+      url.searchParams.delete('tabs');
+      history.replaceState(null, '', url);
+
+      await save();
+    } catch (e) {
+      console.error('Failed to load tabs from URL', e);
+    }
   }
 }
 
@@ -129,7 +181,7 @@ editor.onDidChangeModelContent(() => {
   clearTimeout(saveTimeout);
 
   saveTimeout = setTimeout(() => {
-    saveToUrl();
+    save();
   }, 500);
 });
 
@@ -150,7 +202,7 @@ function switchTab(id) {
   }
 
   renderTabs();
-  saveToUrl();
+  save();
   triggerTabChangeEvent();
 }
 
@@ -205,7 +257,7 @@ function deleteTab(id) {
   }
 
   renderTabs();
-  saveToUrl();
+  save();
   triggerTabChangeEvent();
 }
 
@@ -217,7 +269,7 @@ function renameTab(id, newName) {
   tab.name = newName.trim();
 
   renderTabs();
-  saveToUrl();
+  save();
 }
 
 function renderTabs() {
@@ -291,20 +343,29 @@ function renderTabs() {
 
 addTabBtn.addEventListener('click', createTab);
 
-(async () => {
-  await loadFromUrl();
 
+function reload() {
   renderTabs();
-
   const initialTab = getTabById(activeTabId);
 
   if (initialTab) {
     editor.setModel(initialTab.model);
   }
 
-
   triggerTabChangeEvent();
+}
+
+(async () => {
+  await load();
+
+  reload();
 })();
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    save();
+  }
+});
 
 
 
@@ -339,3 +400,5 @@ document.getElementById('add_tab_button_container').addEventListener('mouseenter
 
 addButton.addEventListener('click', createTab);
 defaultButton.addEventListener('click', () => createFilledTab('default', DEFAULT_PAGE));
+
+
